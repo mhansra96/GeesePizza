@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class playerControl : MonoBehaviour {
@@ -8,7 +9,6 @@ public class playerControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		lastSpeed = 0;
-		
 	}
 	
 	// Update is called once per frame
@@ -18,14 +18,25 @@ public class playerControl : MonoBehaviour {
 
 		//Debug.Log (input_y);
 		if (input_y == -1) {
-			input_y *= lastSpeed - (g*2 * Time.deltaTime);
+		    if (lastSpeed > 0)
+		    {
+		        input_y = lastSpeed - g * 2;
+		    }
+		    else
+		    {
+		        input_y = -g * 2;
+		    }
 		} else if (input_y == 1) {
-			input_y *= lastSpeed + (g * Time.deltaTime);
+			input_y = g;
 		} else {
 			input_y = lastSpeed - (4 * g * Time.deltaTime);
 		}
 		lastSpeed = input_y;
-		Debug.Log (lastSpeed);
+		//Debug.Log (lastSpeed);
 		transform.Translate (new Vector3(0f, input_y));
+	    if (Math.Abs(transform.position.y) >= 600)
+	    {
+	        UnityEditor.EditorApplication.isPaused = false;
+	    }
 	}
 }
