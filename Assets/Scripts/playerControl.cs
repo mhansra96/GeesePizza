@@ -36,7 +36,7 @@ public class playerControl : MonoBehaviour {
 		transform.Translate (new Vector3(0f, input_y));
 	    if (Math.Abs(transform.position.y) >= 600)
 	    {
-	        UnityEditor.EditorApplication.isPaused = false;
+	        //UnityEditor.EditorApplication.isPaused = false;
 	    }
 	}
 }

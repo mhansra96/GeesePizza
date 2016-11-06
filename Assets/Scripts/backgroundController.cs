@@ -8,15 +8,15 @@ public class backgroundController : MonoBehaviour
 	public List<GameObject> clouds;
     public GameObject buildings1, buildings2;
 	public float buildingSpeed = 0.01f;
-	public float cloudSpeed = 0.02f;
+	public float cloudSpeed = 0.025f;
 
 	// Use this for initialization
 	void Start ()
 	{
 		buildings1 = (GameObject) Instantiate(Resources.Load("buildingPrefab"));
-		buildings1.transform.Translate(new Vector3 (-6f, -5f, 0f));
+		buildings1.transform.Translate(new Vector3 (-6f, -5f, -1f));
 		buildings2 = (GameObject) Instantiate(Resources.Load("buildingPrefab"));
-		buildings2.transform.Translate(new Vector3 (24.82f, -5f, 0f));
+		buildings2.transform.Translate(new Vector3 (24.82f, -5f, -1f));
 	}
 	
 	// Update is called once per frame
@@ -29,24 +29,35 @@ public class backgroundController : MonoBehaviour
 		}
 		buildings1.transform.Translate(new Vector3(-buildingSpeed,0f));
 		buildings2.transform.Translate(new Vector3(-buildingSpeed,0f));
-		int chance = UnityEngine.Random.Range (0, 1000);
+		int chance = UnityEngine.Random.Range (0, 120);
 		if (chance == 0) {
-			GameObject cloud = (GameObject)Instantiate (Resources.Load ("Cloud"));
+			//Debug.Log ("cloud");
+			GameObject cloud = null;
 			if (UnityEngine.Random.Range (0, 2) == 0) {
-				SpriteRenderer sprite = cloud.GetComponent<SpriteRenderer>();
-				sprite.sprite = (SResources.Load ("cloud_small");
+				cloud = (GameObject)Instantiate (Resources.Load ("Cloud_Small"));
+				cloud.transform.position = (new Vector3(10f,UnityEngine.Random.Range(-2,7),UnityEngine.Random.Range(-4,-1)));
 			} else {
-				SpriteRenderer sprite = cloud.GetComponent<SpriteRenderer>();
-				sprite.sprite = Resources.Load ("cloud_big");
+				cloud = (GameObject)Instantiate (Resources.Load ("Cloud_Big"));
+				cloud.transform.position = (new Vector3(10f,UnityEngine.Random.Range(-2,7),UnityEngine.Random.Range(-4,-1)));
 			}
-			clouds.Add (cloud);
-		}
-		foreach (GameObject currentCloud in clouds) {
-			if (currentCloud.transform.position.x <= -6.8f) {
-				clouds.Remove (currentCloud);
+			if (cloud != null) {
+				clouds.Add (cloud);
 			}
-			currentCloud.transform.Translate(new Vector3(-cloudSpeed, 0f));
 		}
+		/*foreach (GameObject currentCloud in clouds) {
+			if (currentCloud.transform.position.x <= -10.8f) {
+				Debug.Log ("Remove");
+				clouds.RemoveAll ();
+			}
 
+		}*/
+		for (int i = 0; i < clouds.Count; i++) {
+			if (clouds [i].transform.position.x <= -10.8f) {
+				Debug.Log ("Remove");
+				Destroy (clouds [i]);
+				clouds.RemoveAt (i);
+			}
+			clouds[i].transform.Translate(new Vector3(-cloudSpeed, 0f));
+		}
 	}
 }
