@@ -13,9 +13,9 @@ public class backgroundController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		buildings1 = (GameObject) Instantiate(Resources.Load("buildingPrefab"));
+		buildings1 = (GameObject) Instantiate(Resources.Load("Prefabs/buildingPrefab"));
 		buildings1.transform.Translate(new Vector3 (-6f, -5f, -1f));
-		buildings2 = (GameObject) Instantiate(Resources.Load("buildingPrefab"));
+		buildings2 = (GameObject) Instantiate(Resources.Load("Prefabs/buildingPrefab"));
 		buildings2.transform.Translate(new Vector3 (24.82f, -5f, -1f));
 	}
 	
@@ -34,10 +34,10 @@ public class backgroundController : MonoBehaviour
 			//Debug.Log ("cloud");
 			GameObject cloud = null;
 			if (UnityEngine.Random.Range (0, 2) == 0) {
-				cloud = (GameObject)Instantiate (Resources.Load ("Cloud_Small"));
+				cloud = (GameObject)Instantiate (Resources.Load ("Prefabs/Cloud_Small"));
 				cloud.transform.position = (new Vector3(10f,UnityEngine.Random.Range(-2,7),UnityEngine.Random.Range(-4,-1)));
 			} else {
-				cloud = (GameObject)Instantiate (Resources.Load ("Cloud_Big"));
+				cloud = (GameObject)Instantiate (Resources.Load ("Prefabs/Cloud_Big"));
 				cloud.transform.position = (new Vector3(10f,UnityEngine.Random.Range(-2,7),UnityEngine.Random.Range(-4,-1)));
 			}
 			if (cloud != null) {
